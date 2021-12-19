@@ -35,7 +35,7 @@ func getoutput{
 end
 
 
-@external
+@view
 func applyforce{
             syscall_ptr : felt*,
             pedersen_ptr : HashBuiltin*,
@@ -56,7 +56,7 @@ func applyforce{
         return(ax,ay)
 end
 
-@external
+@view
 func updateVelocity{
             syscall_ptr : felt*,
             pedersen_ptr : HashBuiltin*,
@@ -78,7 +78,7 @@ func updateVelocity{
         return(new_velocity_x,new_velocity_y)
 end
 
-@external
+@view
 func updateLocation{
             syscall_ptr : felt*,
             pedersen_ptr : HashBuiltin*,
