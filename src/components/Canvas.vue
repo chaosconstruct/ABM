@@ -3,29 +3,7 @@ import { ref } from 'vue'
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Documentation
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
-  </p>
-
-  <button type="button" @click="getPoolA()">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
-
+  <button @click="draw">Draw</button>
   <div id="canvas"></div>
 </template>
 
@@ -36,17 +14,9 @@ import P5 from 'p5';
 
 const CONTRACT_ADDRESS = "0x03e19baa6cb2078631bcdb34844f3f7879449a544c9ce722681a54af08cff4b9";
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  },
-  data : function() {
-    return {
-      count: 0
-    }
-  },
+  name: 'Canvas',
   methods : {
-    async getPoolA() {
+    async draw() {
       const poolBalanceTokenA = await defaultProvider.callContract({
         contract_address: CONTRACT_ADDRESS,
         entry_point_selector: getSelectorFromName("get_pool_token_balance"),
@@ -160,56 +130,45 @@ export default {
             let d = p5.createVector(this.location).dist(b[i].location);
             if((d>0) && (d<dis)){
               sum.add(b[i].location);
-              
               count++;
             }
-            
           }
-          if(count > 0){
+          if (count > 0){
             sum.div(count);
             return this.seek(sum);
-            
           }
-            return steer;
+          return steer;
+        }
           
+        Boid.prototype.applyBehavior = function(b){
+          let seperating = this.seperation(b);
+          let alignment = this.align(b);
+          let cohesionf = this.cohesion(b);
+          seperating.mult(1.5);
+          alignment.mult(1);
+          cohesionf.mult(1);
+          this.applyforce(seperating);
+          this.applyforce(alignment);
+          this.applyforce(cohesionf);
         }
 
-
-
-          
-          Boid.prototype.applyBehavior = function(b){
-            let seperating = this.seperation(b);
-        //    PVector steering = seek(new PVector(mouseX,mouseY));
-            let alignment = this.align(b);
-            let cohesionf = this.cohesion(b);
-            seperating.mult(1.5);
-          //  steering.mult(1);
-            alignment.mult(1);
-            cohesionf.mult(1);
-            this.applyforce(seperating);
-        //   applyforce(steering);
-            this.applyforce(alignment);
-            this.applyforce(cohesionf);
-
-          }
-
-
-          Boid.prototype.display= function(b) {
-            p5.fill(175);
-            p5.stroke(0);
-            p5.push();
-            p5.translate(this.location.x, this.location.y);
-            p5.ellipse(0, 0, this.r, this.r);
-            p5.pop();
-          }
+        Boid.prototype.display= function(b) {
+          p5.fill(175);
+          p5.stroke(0);
+          p5.push();
+          p5.translate(this.location.x, this.location.y);
+          p5.ellipse(0, 0, this.r, this.r);
+          p5.pop();
+        }
 
         Boid.prototype.borders= function(b) {
-            if (this.location.x < -this.r) this.location.x = 800+this.r;
-            if (this.location.y < -this.r) this.location.y = 800+this.r;
-            if (this.location.x > 800+this.r) this.location.x = -this.r;
-            if (this.location.y > 800+this.r) this.location.y = -this.r;
-          }
+          if (this.location.x < -this.r) this.location.x = 800+this.r;
+          if (this.location.y < -this.r) this.location.y = 800+this.r;
+          if (this.location.x > 800+this.r) this.location.x = -this.r;
+          if (this.location.y > 800+this.r) this.location.y = -this.r;
+        }
       }
+
       const p5canvas = new P5(script, 'canvas');
     }
   }
