@@ -100,7 +100,4 @@ func updateLocation{
         return(final_location_x,final_location_y,nv_x,nv_y)
 end
 
-
-
-    
   
