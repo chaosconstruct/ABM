@@ -14,7 +14,7 @@ import { defaultProvider, stark } from 'starknet';
 const { getSelectorFromName } = stark;
 const CONTRACT_ADDRESS = "0x008f06975e029fb99f3eb7c593d88c3035094958a8725c28001c10bc2f657c9d";
 export default {
-  name: 'canvas',
+  name: 'CanvasV2',
   methods : {
     async draw() {
 
@@ -123,16 +123,12 @@ function init(){
 async function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     for(let i = 0 ; i < 1 ; i++){
-
-
-////// Major Issue here /////
-let tempval = await wrapupdate(ParticleP[i].x,ParticleP[i].y,ParticleP[i].vx,ParticleP[i].vy,ParticleP[i].ax,ParticleP[i].ay,ParticleP[i].dx,ParticleP[i].dy);
-val = [tempval[0],tempval[1],tempval[2],tempval[3],0,0,getRandomIntInclusive(1)*0.1,getRandomIntInclusive(1)*0.1]
-
-    ParticleP[i].update(val);
-    ParticleP[i].borders();
-    ParticleP[i].draw();
-
+      ////// Major Issue here /////
+      let tempval = await wrapupdate(ParticleP[i].x,ParticleP[i].y,ParticleP[i].vx,ParticleP[i].vy,ParticleP[i].ax,ParticleP[i].ay,ParticleP[i].dx,ParticleP[i].dy);
+      val = [tempval[0],tempval[1],tempval[2],tempval[3],0,0,getRandomIntInclusive(1)*0.1,getRandomIntInclusive(1)*0.1];
+      ParticleP[i].update(val);
+      ParticleP[i].borders();
+      ParticleP[i].draw();
     }
 
     requestAnimationFrame(animate);
