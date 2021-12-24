@@ -56,14 +56,13 @@ export default {
       canvas.height = window.innerHeight;
       let initialValue =  [canvas.width/2,canvas.height/2,0,0,0,0,0,0,0];
       for(let i = 0 ; i < 1 ; i++) {
-        this.particles.push(new Particle(ctx, initialValue));
+        this.particles.push(new Particle(canvas, ctx, initialValue));
       }
     },
 
     async animate() {
       const [canvas, ctx] = this.getContext();
       const particles = this.particles;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       for(let i = 0 ; i < 1 ; i++) {
         //let tempval = await wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy);
         let tempval = await this.wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy);

@@ -1,6 +1,7 @@
 export class Particle{
 
-    constructor(ctx, val) {
+    constructor(canvas, ctx, val) {
+        this.canvas = canvas;
         this.ctx = ctx;
         this.x = val[0];
         this.y = val[1];
@@ -13,6 +14,7 @@ export class Particle{
     }
 
     draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.beginPath();
         this.ctx.arc(this.x,this.y,15,0,Math.PI*2,false);
         this.ctx.fill();
