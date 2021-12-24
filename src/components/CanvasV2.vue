@@ -26,7 +26,7 @@ export default {
           calldata: ["1"],
         });
 
-        console.log(poolBalanceTokenA)
+        
         const value = await defaultProvider.callContract({
           contract_address: CONTRACT_ADDRESS,
           entry_point_selector: getSelectorFromName("getoutput"),
@@ -115,8 +115,13 @@ export default {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         for(let i = 0 ; i < 1 ; i++) {
           ////// Major Issue here /////
-          let tempval = await wrapUpdate(ParticleP[i].x,ParticleP[i].y,ParticleP[i].vx,ParticleP[i].vy,ParticleP[i].ax,ParticleP[i].ay,ParticleP[i].dx,ParticleP[i].dy);
-          val = [tempval[0],tempval[1],tempval[2],tempval[3],0,0,getRandomIntInclusive(1)*0.1,getRandomIntInclusive(1)*0.1];
+         //let tempval = await wrapUpdate(ParticleP[i].x,ParticleP[i].y,ParticleP[i].vx,ParticleP[i].vy,ParticleP[i].ax,ParticleP[i].ay,ParticleP[i].dx,ParticleP[i].dy);
+         let tempval = await wrapUpdate(ParticleP[i].x,ParticleP[i].y,ParticleP[i].vx,ParticleP[i].vy,ParticleP[i].ax,ParticleP[i].ay,ParticleP[i].dx,ParticleP[i].dy);
+
+         
+         //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
+         val = [tempval[0],tempval[1],tempval[2],tempval[3],0,0,1,0];
+         console.log(val);
           ParticleP[i].update(val);
           ParticleP[i].borders();
           ParticleP[i].draw();
