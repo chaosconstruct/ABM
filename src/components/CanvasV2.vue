@@ -66,7 +66,7 @@ export default {
       const FP = 10000;
       const PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
       const PRIME_HALF = PRIME//2;
-      let axx = -0.1;
+      let axx = 0.1;
       let ayy = 0;
 
       for(let i = 0 ; i < 1 ; i++) {
@@ -74,10 +74,10 @@ export default {
         let tempval = await this.wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy,FP);
         //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
 
-        let axx_v = (axx*FP >= 0) ? axx*FP : PRIME+(axx*FP);
-        let ayy_v = (ayy*FP >= 0) ? ayy*FP : PRIME+(ayy*FP);
-        console.log(axx_v);
-        const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx_v/FP,ayy_v/FP];
+   //     let axx_v = (axx*FP >= 0) ? axx*FP : PRIME+(axx*FP);
+   //     let ayy_v = (ayy*FP >= 0) ? ayy*FP : PRIME+(ayy*FP);
+        console.log(axx);
+        const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx/FP,ayy/FP];
 
         this.particles[i].update(val);
         this.particles[i].sanitizeBorders();
