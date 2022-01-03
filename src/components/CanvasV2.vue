@@ -33,19 +33,19 @@ export default {
       return [canvas, ctx];
     },
 
-    async wrapUpdate(x, y, vx , vy, ax, ay, dx, dy,FP){
+    async wrapUpdate(x, y, vx , vy, ax, ay, dx, dy){
       const value = await defaultProvider.callContract({
         contract_address: CONTRACT_ADDRESS,
         entry_point_selector: getSelectorFromName("getoutput"),
         calldata: [
-          ""+Math.floor(x*FP),
-          ""+Math.floor(y*FP),
-          ""+Math.floor(vx*FP),
-          ""+Math.floor(vy*FP),
-          ""+Math.floor(ax*FP),
-          ""+Math.floor(ay*FP),
-          ""+Math.floor(dx*FP),
-          ""+Math.floor(dy*FP)],
+          ""+Math.floor(x),
+          ""+Math.floor(y),
+          ""+Math.floor(vx),
+          ""+Math.floor(vy),
+          ""+Math.floor(ax),
+          ""+Math.floor(ay),
+          ""+Math.floor(dx),
+          ""+Math.floor(dy)],
       });
       return [parseInt(value.result[0], 16),parseInt(value.result[1], 16),parseInt(value.result[2], 16),parseInt(value.result[3], 16)];
     },
@@ -54,6 +54,7 @@ export default {
       const [canvas, ctx] = this.getContext();
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
       let initialValue =  [canvas.width/2,canvas.height/2,0,0,0,0,0,0,0];
       for(let i = 0 ; i < 1 ; i++) {
         this.particles.push(new Particle(canvas, ctx, initialValue));
@@ -66,18 +67,26 @@ export default {
       const FP = 10000;
       const PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
       const PRIME_HALF = PRIME//2;
-      let axx = 0.1;
+      let axx = -0.1;
       let ayy = 0;
 
       for(let i = 0 ; i < 1 ; i++) {
 
-        let tempval = await this.wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy,FP);
+        let x = (particles[i].x >= 0) ? particles[i].x*FP : PRIME+(particles[i].x*FP);
+        let y = (particles[i].y >= 0) ? particles[i].y*FP : PRIME+(particles[i].y*FP);
+        let vx = (particles[i].vx >= 0) ? particles[i].vx*FP : PRIME+(particles[i].vx*FP);
+        let vy = (particles[i].vy >= 0) ? particles[i].vy*FP : PRIME+(particles[i].vy*FP);
+        let ax = (particles[i].ax >= 0) ? particles[i].ax*FP : PRIME+(particles[i].ax*FP);
+        let ay = (particles[i].ay >= 0) ? particles[i].ay*FP : PRIME+(particles[i].ay*FP);
+        let dx = (particles[i].dx >= 0) ? particles[i].dx*FP : PRIME+(particles[i].dx*FP);
+        let dy = (particles[i].dy >= 0) ? particles[i].dy*FP : PRIME+(particles[i].dy*FP);
+
+
+        let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,dy);
         //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
 
-   //     let axx_v = (axx*FP >= 0) ? axx*FP : PRIME+(axx*FP);
-   //     let ayy_v = (ayy*FP >= 0) ? ayy*FP : PRIME+(ayy*FP);
-   
-        // replace axx with axx_v/FP and ayy with ayy_v/FP
+
+
         const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx,ayy];
         console.log(val);
         this.particles[i].update(val);
@@ -95,4 +104,3 @@ a {
   color: #42b983;
 }
 </style>
-
