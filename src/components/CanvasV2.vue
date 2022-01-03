@@ -76,7 +76,8 @@ export default {
 
    //     let axx_v = (axx*FP >= 0) ? axx*FP : PRIME+(axx*FP);
    //     let ayy_v = (ayy*FP >= 0) ? ayy*FP : PRIME+(ayy*FP);
-        
+   
+        // replace axx/FP with axx_v and ayy/FP with ayy_v
         const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx/FP,ayy/FP];
         console.log(val);
         this.particles[i].update(val);
