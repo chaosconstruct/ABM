@@ -67,7 +67,7 @@ export default {
       const FP = 10000;
       const PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
       const PRIME_HALF = PRIME//2;
-      let axx = -0.1;
+      let axx = -0.1;   //-ve value still an issue
       let ayy = 0;
 
       for(let i = 0 ; i < 1 ; i++) {
@@ -83,10 +83,7 @@ export default {
 
 
         let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,dy);
-        //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
-
-
-
+       
         const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx,ayy];
         console.log(val);
         this.particles[i].update(val);
