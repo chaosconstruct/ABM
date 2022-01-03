@@ -33,19 +33,19 @@ export default {
       return [canvas, ctx];
     },
 
-    async wrapUpdate(x, y, vx , vy, ax, ay, dx, dy){
+    async wrapUpdate(x, y, vx , vy, ax, ay, dx, dy,FP){
       const value = await defaultProvider.callContract({
         contract_address: CONTRACT_ADDRESS,
         entry_point_selector: getSelectorFromName("getoutput"),
         calldata: [
-          ""+Math.floor(x),
-          ""+Math.floor(y),
-          ""+Math.floor(vx),
-          ""+Math.floor(vy),
-          ""+Math.floor(ax),
-          ""+Math.floor(ay),
-          ""+Math.floor(dx),
-          ""+Math.floor(dy)],
+          ""+Math.floor(x*FP),
+          ""+Math.floor(y*FP),
+          ""+Math.floor(vx*FP),
+          ""+Math.floor(vy*FP),
+          ""+Math.floor(ax*FP),
+          ""+Math.floor(ay*FP),
+          ""+Math.floor(dx*FP),
+          ""+Math.floor(dy*FP)],
       });
       return [parseInt(value.result[0], 16),parseInt(value.result[1], 16),parseInt(value.result[2], 16),parseInt(value.result[3], 16)];
     },
@@ -63,12 +63,22 @@ export default {
     async animate() {
       const [canvas, ctx] = this.getContext();
       const particles = this.particles;
+      const FP = 10000;
+      const PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
+      const PRIME_HALF = PRIME//2;
+      let axx = -0.1;
+      let ayy = 0;
+
       for(let i = 0 ; i < 1 ; i++) {
-        //let tempval = await wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy);
-        let tempval = await this.wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy);
+
+        let tempval = await this.wrapUpdate(particles[i].x,particles[i].y,particles[i].vx,particles[i].vy,particles[i].ax,particles[i].ay,particles[i].dx,particles[i].dy,FP);
         //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
-        const val = [tempval[0],tempval[1],tempval[2],tempval[3],0,0,1,0];
-        console.log(val);
+
+        let axx_v = (axx*FP >= 0) ? axx*FP : PRIME+(axx*FP);
+        let ayy_v = (ayy*FP >= 0) ? ayy*FP : PRIME+(ayy*FP);
+        console.log(axx_v);
+        const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx_v/FP,ayy_v/FP];
+
         this.particles[i].update(val);
         this.particles[i].sanitizeBorders();
         this.particles[i].draw();
@@ -84,3 +94,4 @@ a {
   color: #42b983;
 }
 </style>
+
