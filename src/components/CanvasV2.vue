@@ -82,7 +82,7 @@ export default {
         let dy = (particles[i].dy >= 0) ? particles[i].dy*FP : PRIME+(particles[i].dy*FP);
 
 
-        let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,3618502788666131213697322783095070105623107215331596699973092056135872020480);
+        let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,dy);
 
 
         //let tempval = await this.wrapUpdate(10,5,0,0,0,0,0,3618502788666131213697322783095070105623107215331596699973092056135872010480);
