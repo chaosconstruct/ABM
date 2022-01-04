@@ -14,7 +14,7 @@ import {Particle} from '../lib/particle.js';
 import {getRandomIntInclusive} from '../lib/utils.js';
 import { defaultProvider, stark } from 'starknet';
 const { getSelectorFromName } = stark;
-const CONTRACT_ADDRESS = "0x0397fcd19dce25e0defc36deec07a37498d6ddfd741d8dabd787f1dfa36bb4b2";
+const CONTRACT_ADDRESS = "0x03fea20b3372f5f92503ce0fd98e7d8794d8ec43c3f468a9703c6868b937b593";
 
 export default {
   name: 'Canvas',
@@ -65,9 +65,9 @@ export default {
       const [canvas, ctx] = this.getContext();
       const particles = this.particles;
       const FP = 10000;
-      const PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
+      let PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020480;
       const PRIME_HALF = PRIME//2;
-      let axx = -0.1;   //-ve value still an issue
+      let axx = 0.1;
       let ayy = 0;
 
       for(let i = 0 ; i < 1 ; i++) {
@@ -82,8 +82,14 @@ export default {
         let dy = (particles[i].dy >= 0) ? particles[i].dy*FP : PRIME+(particles[i].dy*FP);
 
 
-        let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,dy);
-       
+        let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,3618502788666131213697322783095070105623107215331596699973092056135872020480);
+
+
+        //let tempval = await this.wrapUpdate(10,5,0,0,0,0,0,3618502788666131213697322783095070105623107215331596699973092056135872010480);
+        //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
+
+
+
         const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx,ayy];
         console.log(val);
         this.particles[i].update(val);
@@ -101,3 +107,4 @@ a {
   color: #42b983;
 }
 </style>
+
