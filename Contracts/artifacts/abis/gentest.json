@@ -1,0 +1,157 @@
+[
+    {
+        "inputs": [
+            {
+                "name": "x",
+                "type": "felt"
+            },
+            {
+                "name": "y",
+                "type": "felt"
+            },
+            {
+                "name": "vx",
+                "type": "felt"
+            },
+            {
+                "name": "vy",
+                "type": "felt"
+            },
+            {
+                "name": "ax",
+                "type": "felt"
+            },
+            {
+                "name": "ay",
+                "type": "felt"
+            },
+            {
+                "name": "dx",
+                "type": "felt"
+            },
+            {
+                "name": "dy",
+                "type": "felt"
+            }
+        ],
+        "name": "getoutput",
+        "outputs": [
+            {
+                "name": "final_location_x",
+                "type": "felt"
+            },
+            {
+                "name": "final_location_y",
+                "type": "felt"
+            },
+            {
+                "name": "new_velocity_x",
+                "type": "felt"
+            },
+            {
+                "name": "new_velocity_y",
+                "type": "felt"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "ax",
+                "type": "felt"
+            },
+            {
+                "name": "ay",
+                "type": "felt"
+            },
+            {
+                "name": "dx",
+                "type": "felt"
+            },
+            {
+                "name": "dy",
+                "type": "felt"
+            }
+        ],
+        "name": "applyforce",
+        "outputs": [
+            {
+                "name": "ax1",
+                "type": "felt"
+            },
+            {
+                "name": "ay1",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "vx",
+                "type": "felt"
+            },
+            {
+                "name": "vy",
+                "type": "felt"
+            },
+            {
+                "name": "new_acceleration_x",
+                "type": "felt"
+            },
+            {
+                "name": "new_acceleration_y",
+                "type": "felt"
+            }
+        ],
+        "name": "updateVelocity",
+        "outputs": [
+            {
+                "name": "new_velocity_x",
+                "type": "felt"
+            },
+            {
+                "name": "new_velocity_y",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "x",
+                "type": "felt"
+            },
+            {
+                "name": "y",
+                "type": "felt"
+            },
+            {
+                "name": "nv_x",
+                "type": "felt"
+            },
+            {
+                "name": "nv_y",
+                "type": "felt"
+            }
+        ],
+        "name": "updateLocation",
+        "outputs": [
+            {
+                "name": "final_location_x",
+                "type": "felt"
+            },
+            {
+                "name": "final_location_y",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
