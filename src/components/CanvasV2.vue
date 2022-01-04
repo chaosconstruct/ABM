@@ -85,12 +85,15 @@ export default {
         let tempval = await this.wrapUpdate(x,y,vx,vy,ax,ay,dx,dy);
 
 
-        //let tempval = await this.wrapUpdate(10,5,0,0,0,0,0,3618502788666131213697322783095070105623107215331596699973092056135872010480);
+  
+        dx = axx;
+        dy = ayy;
+      
         //// This is trial values //// needs to be updated once GUI is fixed. +ve and Int only.
 
+        const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,dx,dy];
 
 
-        const val = [tempval[0]/FP,tempval[1]/FP,tempval[2]/FP,tempval[3]/FP,0,0,axx,ayy];
         console.log(val);
         this.particles[i].update(val);
         this.particles[i].sanitizeBorders();
